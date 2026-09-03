@@ -56,8 +56,7 @@ Statt blindlings zu akzeptieren, habe ich die Antworten hinterfragt:
 
 ### 4. Struktur als Projekt in Claude AI verwaltet
 
-Diese Kernkompetenzen sind als Projet in Claude AI hinterlegt und dienen mir so RAG-System. 
-Derselbe Aufbau ist in ähnlicher Struktur als GPT bei ChatGPT problemlos möglich. 
+Die Dateien folgen einer einheitlichen Konvention (claude_XX-Thema.md), die eine spätere Weiterverarbeitung – z. B. als RAG-Wissensbasis – direkt ermöglicht.
 
 ---
 
