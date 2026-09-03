@@ -97,8 +97,9 @@ Die Dateien folgen einer einheitlichen Konvention (claude_XX-Thema.md), die eine
 - **Markdown** – Portables, versionierbares Format
 - **Git / GitHub** – Versionierung und Veröffentlichung
 
-
 ---
+## Status
+Es folgen in den nächsten Tagen die einzelnen Markdown-Dateien der 8 relevantesten Kernkompetenzen. Stay curious!
 
 ## 📬 Kontakt & Feedback
 
