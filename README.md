@@ -47,7 +47,7 @@ Die Dateien folgen einer einheitlichen Konvention (claude_XX_Thema.md), die eine
 ---
 ## ✅ Aktueller Stand
  
-Die 8 Markdown-Dateien zu den Kernkompetenzen sind fertiggestellt. Zusätzlich wurden bereits **Quizze pro Kapitel** erstellt, mit denen sich das Wissen direkt testen lässt.
+Die 8 Markdown-Dateien zu den Kernkompetenzen sind online. Zusätzlich wurden bereits **Quizze pro Kapitel** als html-Dokument erstellt, mit denen sich das neue KI-Wissen direkt testen lässt.
  
 **Nächster Schritt:** Die 8 losen Markdown-Dateien in eine durchsuchbare Wissensdatenbank umwandeln.
 ---
