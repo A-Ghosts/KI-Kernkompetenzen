@@ -1,0 +1,82 @@
+2 – Prompt Engineering & Interaktion
+Was ist Prompt Engineering?
+Prompt Engineering ist die Kunst, Eingaben so zu formulieren, dass KI-Modelle präzise, nützliche und zuverlässige Antworten liefern.
+---
+Anatomie eines guten Prompts**
+```
+[Rolle] + [Kontext] + [Aufgabe] + [Format] + [Einschränkungen]
+```
+Beispiel:
+> „Du bist ein erfahrener Marketingtexter *(Rolle)*. Wir lancieren ein B2B-SaaS-Produkt *(Kontext)*. Schreibe 3 LinkedIn-Posts *(Aufgabe)*, je max. 150 Wörter mit CTA *(Format)*, ohne Fachjargon *(Einschränkung)*."
+---
+Die wichtigsten Prompting-Techniken
+Zero-Shot Prompting
+Direkte Anweisung ohne Beispiele. Für einfache, klare Aufgaben.
+```
+Fasse diesen Text in 3 Sätzen zusammen.
+```
+Few-Shot Prompting
+Einige Beispiele zeigen das gewünschte Format. Steuert Stil und Struktur präzise.
+```
+Hier sind 2 Beispiele: [...]. Schreibe jetzt Feedback für: [...]
+```
+Chain-of-Thought (CoT)
+Das Modell denkt Schritt für Schritt nach. Verbessert Logik, Rechnen und Analyse.
+```
+Denke Schritt für Schritt nach, bevor du antwortest.
+```
+Role Prompting
+Dem Modell eine Expertenrolle zuweisen, um Expertise und Perspektive zu steuern.
+```
+Agiere als Senior UX-Researcher mit 10 Jahren Erfahrung...
+```
+System Prompt vs. User Prompt
+Typ	Beschreibung	Einsatz
+System Prompt	Dauerhafte Instruktionen / Rolle	API-Nutzung
+User Prompt	Die eigentliche Anfrage im Gespräch	Jede Interaktion
+Iteratives Prompting
+Antworten schrittweise durch gezielte Folgefragen verfeinern.
+Meta-Prompting
+Das Modell bitten, einen besseren Prompt zu erstellen.
+```
+Verbessere diesen Prompt für mein Ziel: [...]
+```
+---
+Fortgeschrittene Techniken
+Technik	Beschreibung	Anwendungsfall
+Tree of Thought	Mehrere Gedankenpfade parallel erkunden	Komplexe, vielschichtige Probleme
+ReAct	Reasoning + Acting in Loops	Agenten mit Tools
+Self-Consistency	Mehrere Antworten generieren, beste auswählen	Qualitätssicherung
+Constraint Prompting	Klare Regeln und Verbote formulieren	Strukturierte Outputs
+Output Formatting	JSON, Markdown, Tabellen anfordern	Weiterverarbeitung
+---
+Häufige Fehler
+Fehler	Problem	Lösung
+Zu vage	„Schreibe etwas über Marketing"	Ziel, Zielgruppe und Format angeben
+Zu komplex	Alles in einem einzigen Prompt	Aufgaben aufteilen, iterativ vorgehen
+Keine Einschränkungen	Modell entscheidet zu viel selbst	Negativ-Beispiele und Verbote einbauen
+Fehlende Rolle	Generische, unpräzise Antworten	Expertise und Perspektive zuweisen
+Kein Format	Unstrukturierte Ausgabe	Explizit Länge und Struktur vorgeben
+---
+Nützliche Prompt-Vorlagen
+Zusammenfassen
+```
+Fasse den Text für [Zielgruppe] in [Format] zusammen. Fokus auf [Aspekt]: [TEXT]
+```
+Brainstorming
+```
+Generiere 10 ungewöhnliche Ideen für [Thema]. Ordne nach Originalität.
+```
+E-Mail
+```
+Schreibe eine [formell/informell] E-Mail an [Person] zum Thema [Thema]. Max. 150 Wörter.
+```
+Review
+```
+Analysiere aus Perspektive eines [Rolle]. 3 Stärken und 3 Verbesserungen mit Vorschlägen: [DOK]
+```
+---
+Prompt-Sicherheit
+Prompt Injection – Bösartige Eingaben versuchen, bestehende Instruktionen zu überschreiben. Eingaben immer validieren und vom System-Kontext trennen.
+Jailbreaking – Versuche, Sicherheitsmechanismen durch kreative Umformulierungen zu umgehen. Robuste System Prompts und Guardrails einsetzen.
+Halluzinationen reduzieren – Quellenangaben anfordern, Faktencheck einbauen, Temperature auf niedrigere Werte setzen (0.0–0.3 für faktische Aufgaben).
