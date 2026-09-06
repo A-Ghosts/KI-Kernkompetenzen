@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wissensdatenbank | KI-Kernkompetenzen</title>
+  <style>
+    :root {
+      --ink: #17221e;
+      --muted: #5d6c65;
+      --paper: #f7f4ec;
+      --panel: #fffdf8;
+      --line: #d9dfd5;
+      --green: #176b52;
+      --green-dark: #0d4638;
+      --lime: #d7e86e;
+      --coral: #e8785f;
+      --blue: #d9edf0;
+      --shadow: 0 18px 45px rgba(23, 34, 30, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 244, 236, .92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .brand { color: var(--green-dark); font-weight: 700; letter-spacing: .02em; }
+    .brand span { color: var(--coral); }
+    nav { display: flex; gap: 20px; }
+    nav a { color: var(--muted); text-decoration: none; font: 700 14px Arial, sans-serif; }
+    nav a:hover { color: var(--green); }
+    .hero {
+      padding: 72px 0 58px;
+      background: linear-gradient(135deg, #f7f4ec 0%, #eaf0d7 56%, #d9edf0 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow { color: var(--coral); font: 700 12px Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.1; margin: 0; color: var(--green-dark); }
+    h1 { max-width: 780px; margin-top: 14px; font-size: clamp(42px, 7vw, 82px); letter-spacing: -.045em; }
+    .hero-copy { max-width: 670px; margin: 22px 0 0; font-size: 20px; color: #33483e; }
+    .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .stat { padding: 10px 15px; border: 1px solid rgba(23, 107, 82, .22); background: rgba(255,255,255,.52); border-radius: 999px; font: 700 13px Arial, sans-serif; }
+    .section { padding: 56px 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
+    .section-heading h2 { font-size: clamp(30px, 4vw, 48px); letter-spacing: -.03em; }
+    .section-heading p { max-width: 520px; margin: 0; color: var(--muted); }
+    .controls { display: grid; grid-template-columns: 1fr 180px; gap: 12px; margin-bottom: 24px; }
+    input, select {
+      width: 100%; padding: 13px 15px; border: 1px solid var(--line); border-radius: 8px;
+      color: var(--ink); background: var(--panel); outline: none;
+    }
+    input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,107,82,.12); }
+    .chapter-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .chapter-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; }
+    .chapter-card summary { list-style: none; padding: 22px; display: flex; justify-content: space-between; gap: 16px; align-items: start; cursor: pointer; }
+    .chapter-card summary::-webkit-details-marker { display: none; }
+    .chapter-card summary:hover { background: #fbfaf2; }
+    .chapter-number { color: var(--coral); font: 700 12px Arial, sans-serif; letter-spacing: .1em; }
+    .chapter-card h3 { margin-top: 6px; font-size: 25px; }
+    .chapter-summary { margin: 7px 0 0; color: var(--muted); }
+    .chevron { color: var(--green); font: 700 22px Arial, sans-serif; transition: transform .2s; }
+    details[open] .chevron { transform: rotate(45deg); }
+    .chapter-body { padding: 0 22px 24px; border-top: 1px solid var(--line); }
+    .topic { padding-top: 22px; }
+    .topic h4 { margin: 0 0 8px; color: var(--green); font-size: 18px; }
+    .topic p { margin: 0 0 10px; }
+    .topic ul, .topic ol { margin: 8px 0 0; padding-left: 22px; }
+    .tag { display: inline-block; margin: 3px 4px 3px 0; padding: 4px 8px; border-radius: 4px; background: var(--blue); color: var(--green-dark); font: 700 12px Arial, sans-serif; }
+    .quiz-wrap { display: grid; grid-template-columns: 290px 1fr; gap: 24px; align-items: start; }
+    .quiz-settings { padding: 22px; background: var(--green-dark); color: #f3f6e8; border-radius: 10px; }
+    .quiz-settings h3 { color: var(--lime); font-size: 24px; }
+    .quiz-settings label { display: block; margin-top: 17px; font: 700 12px Arial, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+    .quiz-settings select { margin-top: 7px; border: 0; }
+    .primary { width: 100%; margin-top: 22px; padding: 13px 16px; border: 0; border-radius: 7px; color: var(--green-dark); background: var(--lime); font-weight: 700; }
+    .primary:hover { background: #e5f58c; }
+    .quiz-area { min-height: 270px; }
+    .quiz-empty { padding: 42px; border: 1px dashed #b7c2b6; border-radius: 10px; color: var(--muted); text-align: center; background: rgba(255,255,255,.38); }
+    .quiz-card { padding: 28px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); }
+    .quiz-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font: 700 12px Arial, sans-serif; text-transform: uppercase; letter-spacing: .05em; }
+    .quiz-card h3 { margin: 20px 0; font-size: 28px; }
+    .options { display: grid; gap: 9px; }
+    .option { padding: 13px 15px; border: 1px solid var(--line); border-radius: 7px; background: #fff; text-align: left; color: var(--ink); }
+    .option:hover { border-color: var(--green); background: #f4f9ed; }
+    .option.correct { border-color: var(--green); background: #dff1d6; }
+    .option.wrong { border-color: var(--coral); background: #fbe1d9; }
+    .answer-note { margin-top: 20px; padding: 15px; border-left: 4px solid var(--coral); background: #fff5e8; }
+    .next { margin-top: 20px; padding: 11px 16px; border: 1px solid var(--green); border-radius: 7px; color: var(--green); background: transparent; font-weight: 700; }
+    .next:hover { background: var(--green); color: #fff; }
+    .results { padding: 35px; text-align: center; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .score { font-size: 60px; color: var(--coral); font-weight: 700; }
+    footer { padding: 28px 0 45px; color: var(--muted); border-top: 1px solid var(--line); font-size: 14px; }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 24px, 620px); }
+      .topbar-inner { align-items: flex-start; flex-direction: column; gap: 8px; }
+      nav { gap: 14px; }
+      .hero { padding: 48px 0 42px; }
+      h1 { font-size: 48px; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 12px; }
+      .controls, .chapter-grid, .quiz-wrap { grid-template-columns: 1fr; }
+      .quiz-settings { order: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">KI<span>.</span>Kernkompetenzen</div>
+      <nav aria-label="Hauptnavigation"><a href="#wissen">Wissen</a><a href="#quiz">Quiz</a><a href="#info">Über dieses Dokument</a></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="eyebrow">Persönliches Wissenssystem</div>
+        <h1>Acht Perspektiven auf die Arbeit mit KI.</h1>
+        <p class="hero-copy">Eine durchsuchbare Wissensdatenbank mit Grundlagen, Methoden, Infrastruktur, Governance und praktischer Anwendung. Die Inhalte stammen aus den acht Markdown-Kapiteln dieses Projekts.</p>
+        <div class="stats"><div class="stat">8 Kompetenzbereiche</div><div class="stat">Suchbare Inhalte</div><div class="stat">Dynamische Quizze</div><div class="stat">Funktioniert ohne Installation</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="wissen">
+      <div class="shell">
+        <div class="section-heading"><div><div class="eyebrow">Wissensbasis</div><h2>Finde einen Gedanken.</h2></div><p>Öffne ein Kapitel oder suche nach einem Begriff. Die Suche berücksichtigt Überschriften und den vollständigen Text der Wissensbereiche.</p></div>
+        <div class="controls"><input id="search" type="search" placeholder="Suche, zum Beispiel: RAG, Bias, Agenten ..." aria-label="Wissen durchsuchen"><select id="chapterFilter" aria-label="Kapitel filtern"><option value="all">Alle Kapitel</option></select></div>
+        <div class="chapter-grid" id="chapterGrid"></div>
+        <p id="noResults" class="quiz-empty" hidden>Keine passenden Inhalte gefunden.</p>
+      </div>
+    </section>
+
+    <section class="section" id="quiz" style="background:#eaf0d7; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+      <div class="shell">
+        <div class="section-heading"><div><div class="eyebrow">Wissen testen</div><h2>Dein nächster Durchlauf.</h2></div><p>Die Fragen werden zufällig aus dem eingebauten Fragenpool gewählt. Nach jeder Antwort siehst du die Erklärung und die zugehörige Kompetenz.</p></div>
+        <div class="quiz-wrap">
+          <aside class="quiz-settings">
+            <h3>Quiz starten</h3>
+            <label for="quizChapter">Kapitel</label><select id="quizChapter"><option value="all">Alle Kapitel</option></select>
+            <label for="quizDifficulty">Schwierigkeit</label><select id="quizDifficulty"><option value="all">Gemischt</option><option value="leicht">Leicht</option><option value="mittel">Mittel</option><option value="schwer">Schwer</option></select>
+            <label for="quizCount">Anzahl Fragen</label><select id="quizCount"><option value="5">5 Fragen</option><option value="10">10 Fragen</option><option value="15">15 Fragen</option></select>
+            <button class="primary" id="startQuiz">Neues Quiz starten</button>
+          </aside>
+          <div class="quiz-area" id="quizArea"><div class="quiz-empty">Wähle links die Einstellungen und starte dein erstes Quiz.</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="info"><div class="shell">Quelle: claude_01_Grundlagenverstaendnis-KI.md bis claude_08_Prozess-Anwendungswissen.md. Diese HTML-Datei ist eine eigenständige, nicht automatisch synchronisierte Kopie der Inhalte.</div></footer>
+
+  <script>
+    const chapters = [
+      { id: 1, title: "Grundlagenverständnis KI", file: "claude_01_Grundlagenverstaendnis-KI.md", summary: "KI, Machine Learning, Deep Learning, LLMs und die Grenzen heutiger Systeme.", topics: [
+        ["KI, ML und Deep Learning", "KI ist der Oberbegriff für Systeme mit intelligentem Verhalten. Machine Learning lernt aus Daten; Deep Learning nutzt tiefe neuronale Netze. Generative KI erzeugt neue Inhalte."],
+        ["Lernparadigmen", "Supervised Learning arbeitet mit beschrifteten Daten, Unsupervised Learning findet Muster ohne Labels, Reinforcement Learning lernt über Belohnung und Transfer Learning passt vortrainierte Modelle an neue Aufgaben an."],
+        ["Large Language Models", "LLMs zerlegen Text in Tokens und berechnen Wahrscheinlichkeiten für das nächste Token. Transformer und Attention ermöglichen die Verarbeitung von Kontext. Parameter, Context Window und Temperature beeinflussen das Verhalten."],
+        ["Wichtige Begriffe", "Prompt, Token, Embedding, Fine-Tuning, RLHF, Multimodalität und API gehören zum Grundvokabular. Halluzinationen sind plausibel klingende, aber falsche Modellantworten."],
+        ["Grenzen und Treiber", "Datenverfügbarkeit, Rechenleistung und bessere Algorithmen treiben die Entwicklung. KI hat kein garantiertes echtes Verständnis, kein Bewusstsein und liefert nicht automatisch faktenbasierte Aussagen."]
+      ]},
+      { id: 2, title: "Prompt Engineering & Interaktion", file: "claude_02_Prompt-Engineering-Interaktion.md", summary: "Anweisungen, Rollen, Beispiele, Ausgabeformate und Sicherheit für bessere Modellantworten.", topics: [
+        ["Anatomie eines guten Prompts", "Ein robuster Prompt verbindet Rolle, Kontext, Aufgabe, Format und Einschränkungen. Je klarer Zielgruppe und gewünschtes Ergebnis sind, desto besser lässt sich die Ausgabe steuern."],
+        ["Grundtechniken", "Zero-Shot arbeitet ohne Beispiele, Few-Shot zeigt Beispiele. Role Prompting gibt eine Perspektive vor, iteratives Prompting verfeinert Antworten schrittweise und Meta-Prompting lässt Prompts verbessern."],
+        ["Fortgeschrittene Techniken", "Tree of Thought erkundet mehrere Pfade, ReAct verbindet Reasoning mit Tool-Aktionen, Self-Consistency vergleicht mehrere Antworten und Constraint Prompting erzwingt Regeln und Formate."],
+        ["Häufige Fehler", "Vage Aufgaben, überladene Prompts, fehlende Einschränkungen, keine Rolle und kein Ausgabeformat führen zu unpräzisen Ergebnissen. Aufgaben sollten bei Bedarf geteilt werden."],
+        ["Sicherheit", "Prompt Injection versucht Instruktionen zu überschreiben, Jailbreaking umgeht Schutzmechanismen. Eingaben sollten validiert, System- und Nutzkontext getrennt und Quellen für Fakten angefordert werden."]
+      ]},
+      { id: 3, title: "Retrieval & Wissenssysteme", file: "claude_03_Retrieval-Wissenssysteme.md", summary: "RAG, Embeddings, Chunking, Vektordatenbanken und die Bewertung von Suchsystemen.", topics: [
+        ["RAG-Ablauf", "Bei der Indexierung werden Dokumente in Chunks zerlegt, eingebettet und gespeichert. Bei einer Anfrage werden passende Chunks gesucht und gemeinsam mit der Frage an das Sprachmodell übergeben."],
+        ["Embeddings und Speicher", "Embeddings repräsentieren Text als Vektoren. Chroma eignet sich für Prototyping, Qdrant und Weaviate für Self-Hosting, Pinecone als Managed Service und pgvector für PostgreSQL-Umgebungen."],
+        ["Chunking", "Fixed Size, Satzgrenzen, semantisches Chunking und Markdown-Header sind verschiedene Strategien. Als Ausgangspunkt gelten 256 bis 512 Tokens und 50 bis 100 Tokens Overlap."],
+        ["Fortgeschrittene Suche", "Hybrid Search kombiniert semantische und Keyword-Suche. Re-Ranking, HyDE, Multi-Query Retrieval und Parent Document Retrieval verbessern Treffer für komplexe Fragen."],
+        ["Evaluation", "Retrieval Precision, Answer Faithfulness, Answer Relevance und Context Recall prüfen, ob relevante Quellen gefunden und korrekt verwendet werden."]
+      ]},
+      { id: 4, title: "Automatisierung & Orchestrierung", file: "claude_04_Automatisierung-Orchestrierung.md", summary: "Agenten, Tool Use, Workflows, Memory, Frameworks und Grenzen autonomer Systeme.", topics: [
+        ["Vom Chatbot zum Agenten", "Ein Chatbot beantwortet Fragen. Ein Agent verfolgt ein Ziel, plant, nutzt Tools und iteriert. Multi-Agent-Systeme koordinieren spezialisierte Agenten."],
+        ["Tool Use und ReAct", "Agenten können Suche, Code-Ausführung, Dateien, APIs und Kommunikation nutzen. Das ReAct-Prinzip verbindet Thought, Action und Observation in einer Schleife."],
+        ["Workflows", "Sequenzielle, parallele und hierarchische Workflows verteilen Aufgaben unterschiedlich. Beim Human-in-the-Loop genehmigt ein Mensch kritische Schritte vor der Ausführung."],
+        ["Memory und Plattformen", "In-Context, External, Episodic und Semantic Memory erfüllen verschiedene Aufgaben. LangChain, LlamaIndex, CrewAI, AutoGen und Semantic Kernel sind verbreitete Frameworks."],
+        ["Risiken", "Halluzinierte Tool-Calls, Endlosschleifen, Scope Creep, unkontrollierte Code-Ausführung und Kosten erfordern minimale Tool-Rechte, Freigaben, Logs und Monitoring."]
+      ]},
+      { id: 5, title: "Modellwissen & -auswahl", file: "claude_05_Modellwissen-Auswahl.md", summary: "Anbieter, Modellparameter, Benchmarks, Multimodalität und Kostenoptimierung.", topics: [
+        ["Anbieterlandschaft", "OpenAI, Anthropic und Google bieten proprietäre Modelle. Llama und Mistral stehen für Open-Source- beziehungsweise Self-Hosting-Optionen mit mehr Kontrolle."],
+        ["Entscheidungsframework", "Datenschutz, Aufgabenkomplexität, Reasoning-Bedarf, Kosten, Geschwindigkeit und vorhandene Ökosysteme bestimmen die Modellwahl. Eigene Use Cases sind wichtiger als ein einzelner Benchmark."],
+        ["Parameter", "Context Window beschreibt die verarbeitbare Textmenge. Temperature beeinflusst Kreativität, Max Tokens die Antwortlänge, Latenz die Geschwindigkeit und Tokenpreise die Kosten."],
+        ["Benchmarks und Modalitäten", "MMLU, HumanEval, GSM8K und Chatbot Arena messen unterschiedliche Fähigkeiten. Modelle können Text, Bilder, Audio oder Video verarbeiten, aber nicht alle dieselben Modalitäten."],
+        ["Kostenoptimierung", "Routing, Caching, Batching und lokale Modelle senken Kosten. Kleine Modelle eignen sich für einfache Aufgaben, leistungsfähige Modelle für komplexe oder risikoreiche Aufgaben."]
+      ]},
+      { id: 6, title: "Infrastruktur & Deployment", file: "claude_06_Infrastruktur-Deployment.md", summary: "Cloud, Self-Hosting, MLOps, Inference, Monitoring und Datensouveränität.", topics: [
+        ["Deployment-Modelle", "Cloud APIs sind schnell startklar und nutzungsabhängig bepreist. On-Premise bietet Kontrolle, benötigt aber Investitionen. Hybrid kombiniert beides und erhöht die Komplexität."],
+        ["Self-Hosting", "GPU, VRAM und schnelle Speicher sind zentrale Hardwarefaktoren. FastAPI, vLLM, TGI, Ollama, Docker und Kubernetes bilden typische Bausteine für Inferenz und Betrieb."],
+        ["MLOps", "Der Lifecycle reicht von Datensammlung und Modellauswahl über Evaluation und Deployment bis zu Monitoring und Verbesserung. MLflow, DVC und GitHub Actions unterstützen diesen Prozess."],
+        ["Monitoring", "Latenz, Durchsatz, Tokenkosten, Halluzinationsrate und Data Drift sollten beobachtet werden. Langfuse, LangSmith, Helicone und Arize sind mögliche Werkzeuge."],
+        ["Optimierung und Souveränität", "Quantisierung, Batching, KV-Cache und Continuous Batching verbessern Inferenz. EU-Clouds, Open Source und Private Clouds unterstützen Datensouveränität."]
+      ]},
+      { id: 7, title: "Governance & Verantwortung", file: "claude_07_Governance-Verantwortung.md", summary: "EU AI Act, DSGVO, Ethik, Bias, Unternehmensrichtlinien und Rechenschaft.", topics: [
+        ["EU AI Act", "Der EU AI Act ordnet Systeme nach Risiko ein: verboten, hohes Risiko, begrenztes Risiko und minimales Risiko. Pflichten steigen mit dem Risiko; Hochrisikosysteme benötigen unter anderem Dokumentation, Logging und menschliche Aufsicht."],
+        ["DSGVO und Ethik", "Personenbezogene Trainingsdaten benötigen eine Rechtsgrundlage. Datenschutz-Folgenabschätzung, AVV und menschliche Überprüfung sind wichtige Prüfungen. Die sieben EU-Grundsätze umfassen unter anderem Transparenz, Robustheit und Nicht-Diskriminierung."],
+        ["Bias und Fairness", "Trainingsdaten-, algorithmischer und Messbias können unterschiedliche Fehlerquoten erzeugen. Diverse Daten, Bias-Audits und regelmäßige Fairness-Tests wirken dagegen."],
+        ["Unternehmens-Governance", "Nutzungs-, Datenklassifizierungs-, Vendor-Assessment- und Incident-Response-Policies bilden eine Mindestbasis. Ein KI-Inventar dokumentiert Systeme, Datenflüsse, Risiken und Verantwortliche."],
+        ["Kontrolle", "XAI-Methoden wie LIME, SHAP und Counterfactuals helfen bei Erklärungen. ISO 42001, NIST AI RMF und BSI-Leitlinien bieten zusätzliche Orientierungen."]
+      ]},
+      { id: 8, title: "Prozess- & Anwendungswissen", file: "claude_08_Prozess-Anwendungswissen.md", summary: "Use Cases, ROI, Change Management, Rollen, KPIs und der KI-Projektlebenszyklus.", topics: [
+        ["Projektlebenszyklus", "Ein KI-Projekt durchläuft Erkennen, Bewerten, Konzipieren, Entwickeln, Einführen, Betreiben und Weiterentwickeln."],
+        ["Use Cases und ROI", "Gute Use Cases sind datenbasiert, repetitiv, skalierbar, messbar und akzeptierbar. Der ROI wird als (jährliche Einsparung minus jährliche Kosten) geteilt durch die Investition berechnet."],
+        ["Anwendungsfelder", "Marketing, Sales, Kundenservice, Finance, HR, Logistik und IT bieten unterschiedliche Ansatzpunkte wie Content-Erstellung, Ticketklassifikation, Rechnungsverarbeitung, Forecasting und Code-Review."],
+        ["Change Management", "Stakeholder früh einbinden, Piloten starten, schnelle Erfolge zeigen, schulen und Feedbackschleifen einbauen. Ängste, Vertrauensdefizite und Qualifikationslücken müssen aktiv adressiert werden."],
+        ["Rollen und KPIs", "Anwender, Koordinator, Entwickler, Architekt und Governance Officer tragen unterschiedliche Verantwortung. Time Saved, Error Rate, Throughput, Cost per Unit, Adoption Rate und ROI messen Wirkung."]
+      ]}
+    ];
+
+    const questions = [
+      {c:1,d:"leicht",q:"Wofür steht die Abkürzung LLM?",o:["Large Language Model","Logical Learning Machine","Layered Logic Module","Language Link Method"],a:0,e:"LLM bedeutet Large Language Model: ein auf großen Textmengen trainiertes Sprachmodell."},
+      {c:1,d:"mittel",q:"Welche Aufgabe hat der Attention-Mechanismus in einem Transformer?",o:["Er ermöglicht die Gewichtung relevanter Kontextteile","Er ersetzt alle Trainingsdaten","Er verschlüsselt die API","Er bestimmt den Stromverbrauch"],a:0,e:"Attention hilft dem Modell, relevante Beziehungen zwischen Tokens im Kontext zu berücksichtigen."},
+      {c:1,d:"schwer",q:"Warum sind plausible Antworten eines LLMs nicht automatisch Fakten?",o:["Das Modell optimiert Wahrscheinlichkeiten für Text, nicht Wahrheit","LLMs lesen grundsätzlich keine Texte","Transformer können keine Sätze bilden","Temperatur verhindert Fakten"],a:0,e:"Ein Sprachmodell erzeugt wahrscheinliche Fortsetzungen. Dadurch können auch falsche Aussagen überzeugend klingen."},
+      {c:2,d:"leicht",q:"Welche fünf Bausteine gehören zur Anatomie eines guten Prompts?",o:["Rolle, Kontext, Aufgabe, Format, Einschränkungen","Modell, GPU, Token, API, Preis","Datenbank, Server, Browser, Passwort, Cache","Frage, Antwort, Fehler, Test, Deploy"],a:0,e:"Rolle, Kontext, Aufgabe, Format und Einschränkungen geben dem Modell Ziel und Rahmen vor."},
+      {c:2,d:"mittel",q:"Was ist der Unterschied zwischen Zero-Shot und Few-Shot Prompting?",o:["Few-Shot nutzt Beispiele, Zero-Shot nicht","Zero-Shot nutzt mehr Beispiele","Beide Begriffe beschreiben Modelltraining","Few-Shot funktioniert nur mit Bildern"],a:0,e:"Zero-Shot gibt eine direkte Aufgabe ohne Beispiele; Few-Shot zeigt Beispiele für das gewünschte Muster."},
+      {c:2,d:"schwer",q:"Welche Maßnahme reduziert das Risiko von Prompt Injection?",o:["System- und Nutzkontext trennen und Eingaben validieren","Alle Eingaben ungeprüft als System Prompt ausführen","Temperature immer erhöhen","Quellenangaben entfernen"],a:0,e:"Getrennte Vertrauensbereiche und Validierung verhindern, dass Nutzereingaben bestehende Regeln überschreiben."},
+      {c:3,d:"leicht",q:"Wofür steht RAG?",o:["Retrieval-Augmented Generation","Random Answer Generator","Runtime Agent Graph","Rendered Archive Gateway"],a:0,e:"RAG verbindet die Suche nach relevanten Quellen mit der anschließenden Antwortgenerierung."},
+      {c:3,d:"mittel",q:"Was passiert bei der Indexierung eines RAG-Systems?",o:["Dokumente werden in Chunks zerlegt, eingebettet und gespeichert","Das Modell wird vollständig neu trainiert","Alle Dokumente werden gelöscht","Nur die Benutzeroberfläche wird aktualisiert"],a:0,e:"Die Dokumente werden vorbereitet und für eine spätere Ähnlichkeitssuche in einem Speicher abgelegt."},
+      {c:3,d:"schwer",q:"Was misst Answer Faithfulness?",o:["Ob eine Antwort durch den bereitgestellten Kontext gedeckt ist","Wie schnell ein Server antwortet","Wie viele Nutzer angemeldet sind","Wie groß ein Modell ist"],a:0,e:"Faithfulness prüft, ob die generierte Antwort tatsächlich aus den gefundenen Quellen folgt."},
+      {c:4,d:"leicht",q:"Was unterscheidet einen Agenten von einem einfachen Chatbot?",o:["Ein Agent kann planen und Tools nutzen","Ein Agent verwendet keine Sprache","Ein Chatbot braucht immer eine Datenbank","Ein Agent ist nur ein anderes Dateiformat"],a:0,e:"Agenten verfolgen Ziele, planen Schritte, nutzen Tools und können iterativ handeln."},
+      {c:4,d:"mittel",q:"Was bedeutet Human-in-the-Loop?",o:["Ein Mensch genehmigt kritische Schritte des Agenten","Ein Mensch wird aus dem Prozess entfernt","Mehrere Modelle werden verschmolzen","Ein Agent arbeitet ohne Logs"],a:0,e:"Bei kritischen Aktionen bleibt eine menschliche Prüfung oder Freigabe im Ablauf."},
+      {c:4,d:"schwer",q:"Welche Kombination ist eine sinnvolle Best Practice für Agenten?",o:["Minimale Tool-Rechte, Freigaben, Logs und Monitoring","Unbegrenzter Zugriff und keine Protokolle","Alle Aufgaben parallel ohne Koordination","Keine Tests vor dem produktiven Einsatz"],a:0,e:"Begrenzte Rechte und nachvollziehbare Abläufe reduzieren Sicherheits-, Kosten- und Qualitätsrisiken."},
+      {c:5,d:"leicht",q:"Welcher Faktor gehört zur Modellwahl?",o:["Aufgabe, Datenschutz, Kosten und Geschwindigkeit","Nur die Farbe des Logos","Ausschließlich die Modellgröße","Nur die Anzahl der Anbieter"],a:0,e:"Eine sinnvolle Auswahl berücksichtigt Anforderungen, Risiko, Kosten, Leistung und vorhandene Infrastruktur."},
+      {c:5,d:"mittel",q:"Was beeinflusst die Temperature eines Sprachmodells?",o:["Die Zufälligkeit und Kreativität der Ausgabe","Die Größe der Festplatte","Die Länge des Trainingsdatensatzes","Die Anzahl der Benutzer"],a:0,e:"Niedrige Werte machen Ausgaben meist deterministischer, höhere Werte variantenreicher."},
+      {c:5,d:"schwer",q:"Warum sollten Benchmarks nicht die einzige Grundlage einer Modellentscheidung sein?",o:["Eigene Use Cases können andere Fähigkeiten und Randbedingungen verlangen","Benchmarks messen grundsätzlich keine Modelle","Benchmarks sind immer geheim","Modelle haben keine unterschiedlichen Stärken"],a:0,e:"Ein Benchmark bildet nur bestimmte Aufgaben ab. Tests mit realen Anforderungen sind deshalb notwendig."},
+      {c:6,d:"leicht",q:"Was ist ein Cloud-API-Deployment?",o:["Ein Modell wird über einen externen Dienst genutzt","Ein Modell läuft ausschließlich auf Papier","Eine lokale Grafikkarte ohne Netzwerk","Ein Markdown-Parser"],a:0,e:"Bei einer Cloud API übernimmt ein Anbieter Infrastruktur und Inferenz; abgerechnet wird typischerweise nach Nutzung."},
+      {c:6,d:"mittel",q:"Was beobachtet MLOps-Monitoring typischerweise?",o:["Latenz, Kosten, Qualität und Data Drift","Nur die Farbe der Benutzeroberfläche","Ausschließlich die Dateinamen","Nur die Zahl der Trainingsfolien"],a:0,e:"Produktionssysteme sollten technische, finanzielle und qualitative Signale überwachen."},
+      {c:6,d:"schwer",q:"Welchen Zweck hat Quantisierung?",o:["Ein Modell wird kleiner und schneller, meist mit geringem Qualitätsverlust","Ein Modell erhält automatisch neue Trainingsdaten","Alle Sicherheitsregeln werden entfernt","Die Kontextlänge wird immer verdoppelt"],a:0,e:"Quantisierung reduziert die Präzision von Modellgewichten und kann dadurch Speicherbedarf und Inferenzkosten senken."},
+      {c:7,d:"leicht",q:"Was beschreibt eine Risikoklasse des EU AI Act?",o:["Die regulatorische Einstufung eines KI-Systems","Die Anzahl der Modellparameter","Die Geschwindigkeit einer GPU","Die Länge eines Prompts"],a:0,e:"Der EU AI Act ordnet Systeme abhängig von ihren möglichen Auswirkungen verschiedenen Risikoklassen zu."},
+      {c:7,d:"mittel",q:"Welche Maßnahme hilft gegen Bias?",o:["Diverse Daten, Bias-Audits und Fairness-Tests","Weniger Dokumentation","Keine menschliche Aufsicht","Nur höhere Temperature"],a:0,e:"Bias lässt sich nicht durch einen einzelnen Parameter lösen; Datenprüfung und regelmäßige Tests sind nötig."},
+      {c:7,d:"schwer",q:"Warum braucht ein Unternehmen ein KI-Inventar?",o:["Damit Systeme, Datenflüsse, Risiken und Verantwortliche nachvollziehbar sind","Damit alle Modelle dieselbe Antwort geben","Damit keine Policies nötig sind","Damit Training überflüssig wird"],a:0,e:"Ein Inventar schafft Transparenz über den Bestand und unterstützt Risiko-, Datenschutz- und Verantwortlichkeitsprüfungen."},
+      {c:8,d:"leicht",q:"Was ist ein typischer Quick Win bei der Use-Case-Priorisierung?",o:["Geringer Aufwand bei hohem erwarteten Wert","Hoher Aufwand ohne messbares Ziel","Ein Projekt ohne Datenbasis","Eine Lösung ohne Nutzer"],a:0,e:"Quick Wins verbinden einen überschaubaren Aufwand mit hohem Nutzen."},
+      {c:8,d:"mittel",q:"Welche Phase folgt im Projektlebenszyklus auf das Bewerten?",o:["Konzipieren","Vergessen","Abschalten","Veröffentlichen ohne Test"],a:0,e:"Nach Erkennen und Bewerten wird die Lösung konzipiert, bevor sie entwickelt und eingeführt wird."},
+      {c:8,d:"schwer",q:"Warum ist Change Management bei KI-Projekten wichtig?",o:["Eine technisch gute Lösung kann ohne Akzeptanz und Befähigung trotzdem scheitern","Weil dadurch jedes Modell genauer wird","Weil dann keine Daten benötigt werden","Weil es Monitoring ersetzt"],a:0,e:"Einführung, Schulung, Transparenz und Feedback entscheiden wesentlich darüber, ob eine Lösung tatsächlich genutzt wird."}
+    ];
+
+    const chapterGrid = document.getElementById("chapterGrid");
+    const filter = document.getElementById("chapterFilter");
+    const search = document.getElementById("search");
+    const noResults = document.getElementById("noResults");
+    const quizChapter = document.getElementById("quizChapter");
+    const quizArea = document.getElementById("quizArea");
+    let quizState = { list: [], index: 0, score: 0, answered: false };
+
+    function populateSelect(select) {
+      chapters.forEach(chapter => { const option = document.createElement("option"); option.value = chapter.id; option.textContent = `${String(chapter.id).padStart(2, "0")} · ${chapter.title}`; select.appendChild(option); });
+    }
+    populateSelect(filter); populateSelect(quizChapter);
+
+    function renderChapters() {
+      const term = search.value.trim().toLowerCase();
+      const selected = filter.value;
+      chapterGrid.innerHTML = "";
+      let visible = 0;
+      chapters.forEach(chapter => {
+        if (selected !== "all" && selected !== String(chapter.id)) return;
+        const searchable = `${chapter.title} ${chapter.summary} ${chapter.topics.flat().join(" ")}`.toLowerCase();
+        if (term && !searchable.includes(term)) return;
+        visible++;
+        const details = document.createElement("details"); details.className = "chapter-card";
+        details.innerHTML = `<summary><div><div class="chapter-number">KOMPETENZ ${String(chapter.id).padStart(2, "0")}</div><h3>${chapter.title}</h3><p class="chapter-summary">${chapter.summary}</p></div><div class="chevron">+</div></summary><div class="chapter-body">${chapter.topics.map(topic => `<article class="topic"><h4>${topic[0]}</h4><p>${topic[1]}</p></article>`).join("")}<span class="tag">Quelle: ${chapter.file}</span></div>`;
+        chapterGrid.appendChild(details);
+      });
+      noResults.hidden = visible !== 0;
+    }
+    search.addEventListener("input", renderChapters); filter.addEventListener("change", renderChapters); renderChapters();
+
+    function shuffle(items) { return [...items].sort(() => Math.random() - .5); }
+    function startQuiz() {
+      const chapterValue = quizChapter.value;
+      const difficulty = document.getElementById("quizDifficulty").value;
+      const count = Number(document.getElementById("quizCount").value);
+      let pool = questions.filter(item => (chapterValue === "all" || item.c === Number(chapterValue)) && (difficulty === "all" || item.d === difficulty));
+      if (!pool.length) { quizArea.innerHTML = `<div class="quiz-empty">Für diese Kombination sind noch keine Fragen vorhanden.</div>`; return; }
+      quizState = { list: shuffle(pool).slice(0, count), index: 0, score: 0, answered: false }; renderQuestion();
+    }
+    function renderQuestion() {
+      if (quizState.index >= quizState.list.length) { renderResults(); return; }
+      const item = quizState.list[quizState.index];
+      const chapter = chapters.find(ch => ch.id === item.c);
+      quizState.answered = false;
+      quizArea.innerHTML = `<article class="quiz-card"><div class="quiz-meta"><span>Frage ${quizState.index + 1} / ${quizState.list.length}</span><span>${chapter.title} · ${item.d}</span></div><h3>${item.q}</h3><div class="options">${item.o.map((option, index) => `<button class="option" data-index="${index}">${option}</button>`).join("")}</div><div id="answerNote"></div></article>`;
+      quizArea.querySelectorAll(".option").forEach(button => button.addEventListener("click", () => answerQuestion(Number(button.dataset.index))));
+    }
+    function answerQuestion(selected) {
+      if (quizState.answered) return;
+      quizState.answered = true;
+      const item = quizState.list[quizState.index];
+      quizArea.querySelectorAll(".option").forEach((button, index) => { button.disabled = true; if (index === item.a) button.classList.add("correct"); if (index === selected && index !== item.a) button.classList.add("wrong"); });
+      if (selected === item.a) quizState.score++;
+      document.getElementById("answerNote").innerHTML = `<div class="answer-note"><strong>${selected === item.a ? "Richtig." : "Noch einmal ansehen."}</strong><br>${item.e}</div><button class="next" id="nextQuestion">${quizState.index + 1 === quizState.list.length ? "Ergebnis anzeigen" : "Nächste Frage"}</button>`;
+      document.getElementById("nextQuestion").addEventListener("click", () => { quizState.index++; renderQuestion(); });
+    }
+    function renderResults() {
+      const percentage = Math.round((quizState.score / quizState.list.length) * 100);
+      quizArea.innerHTML = `<div class="results"><div class="eyebrow">Quiz abgeschlossen</div><div class="score">${percentage}%</div><h3>${quizState.score} von ${quizState.list.length} Fragen richtig</h3><p>${percentage >= 80 ? "Starke Runde. Jetzt lohnt sich eine schwierigere Auswahl." : percentage >= 50 ? "Gute Grundlage. Wiederhole die markierten Themen und starte eine neue Mischung." : "Ein kurzer Rückblick auf die Kapitel hilft. Danach kannst du das Quiz erneut versuchen."}</p><button class="primary" id="restartQuiz">Noch einmal spielen</button></div>`;
+      document.getElementById("restartQuiz").addEventListener("click", startQuiz);
+    }
+    document.getElementById("startQuiz").addEventListener("click", startQuiz);
+  </script>
+</body>
+</html>
