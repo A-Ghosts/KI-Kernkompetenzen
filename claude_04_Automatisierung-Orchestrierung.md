@@ -1,0 +1,72 @@
+# 4 – Automatisierung & Orchestrierung
+
+## Von Chatbots zu autonomen Agenten
+
+- **Chatbot** → Frage → Antwort
+- **Agent** → Ziel → planen → Tools nutzen → Ergebnis
+- **Multi-Agent** → Ziel → Koordinator → spezialisierte Agenten → Ergebnis
+
+## Was ist ein KI-Agent?
+
+Ein KI-Agent ist ein LLM, das wahrnimmt, denkt, handelt und iteriert. Es nutzt das ReAct-Prinzip (Reason + Act):
+
+Thought → Action → Observation → Thought → ... → Antwort
+
+## Tool Use / Function Calling
+
+Agenten nutzen Tools, um die Welt zu beeinflussen:
+- **Suche** – Web, Vektordatenbank, SQL
+- **Code-Ausführung** – Python-Runner, Shell, Browser
+- **Datei-Operationen** – Lesen, Schreiben, Konvertieren
+- **APIs** – E-Mail, Kalender, CRM, ERP
+- **Kommunikation** – Slack, Teams, E-Mail senden
+
+## Agentic Workflows
+
+**Sequenziell:** Schritt 1 → Schritt 2 → Schritt 3 → Ergebnis
+
+**Parallel:** Koordinator delegiert an mehrere Agenten gleichzeitig → zusammenführen
+
+**Hierarchisch:** Orchestrator-Agent delegiert an spezialisierte Sub-Agenten (Research, Writer, Code, Review)
+
+**Human-in-the-Loop:** Agent plant → Mensch genehmigt → Agent führt aus
+
+## Wichtige Frameworks (Code)
+
+- **LangChain** – Größtes Ökosystem, viele Integrationen (Python/JS)
+- **LlamaIndex** – Spezialisiert auf RAG und Daten
+- **CrewAI** – Multi-Agent Koordination
+- **AutoGen** – Microsoft, Multi-Agent Konversation
+- **Semantic Kernel** – Microsoft, Enterprise (.NET/Python)
+
+## No-Code / Low-Code Plattformen
+
+- **n8n** – Open Source Workflow-Automatisierung mit KI
+- **Make** – Visual Workflow Builder
+- **Zapier AI** – KI-gestützte Automatisierungen
+- **Microsoft Copilot Studio** – Enterprise-Agenten in M365
+
+## Memory-Typen für Agenten
+
+- **In-Context Memory** – Informationen im aktuellen Prompt
+- **External Memory** – Datenbanken, Vektorspeicher
+- **Episodic Memory** – Vergangene Konversationen
+- **Semantic Memory** – Faktenwissen
+
+## Praktische Use Cases
+
+- Marketing: Content-Pipeline (Recherche → Schreiben → SEO-Check)
+- Sales: Lead-Recherche, personalisierte E-Mails, CRM-Update
+- Support: Ticket-Klassifikation, automatische Antworten, Eskalation
+- Finanzen: Belegverarbeitung, Report-Erstellung, Anomalie-Detection
+- IT: Code-Review, Bug-Fixing, Deployment-Checks
+
+## Risiken und Grenzen
+
+- Halluzinierte Tool-Calls – Agent ruft falsche APIs auf
+- Infinite Loops – Agent dreht sich im Kreis
+- Scope Creep – Agent überschreitet seinen Auftrag
+- Sicherheitsrisiken – unkontrollierte Code-Ausführung
+- Kosten – viele API-Calls können teuer werden
+
+Best Practice: Minimal Tool-Zugang, Human-in-the-Loop, Logs und Monitoring.
