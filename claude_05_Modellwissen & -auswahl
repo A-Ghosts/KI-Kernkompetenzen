@@ -1,0 +1,50 @@
+5 – Modellwissen & -auswahl
+Die wichtigsten Anbieter 2026
+OpenAI: GPT-4o (schnell, multimodal), o1/o3 (starkes Reasoning), GPT-4.5 (beste Instruction-Following)
+Anthropic: Claude Opus (komplex, Nuancen), Claude Sonnet (bestes Preis-Leistung), Claude Haiku (schnell, günstig)
+Google: Gemini Ultra (multimodal, riesiges Context Window), Gemini Flash (sehr günstig)
+Meta (Open Source): Llama 3.x – lokal betreibbar, volle Kontrolle, datenschutzkonform
+Mistral AI: Mistral Large (mehrsprachig, EU-basiert), Mixtral (effizient, Self-Hosting)
+Entscheidungsframework
+Datenschutz kritisch? → Open Source (Llama, Mistral) auf eigener Infra oder EU-Anbieter
+Einfach/Volume? → Haiku, GPT-4o mini, Gemini Flash (günstig & schnell)
+Komplex? → Sonnet, GPT-4o, Gemini Ultra
+Reasoning/Logik? → o1, o3, Claude Opus
+Microsoft-Ökosystem? → Azure OpenAI / Copilot
+Google-Ökosystem? → Gemini / Vertex AI
+Wichtige Modell-Parameter
+Context Window – Wie viel Text auf einmal (8k – 2M Tokens)
+Temperature – Kreativität (0.0–2.0)
+Max Tokens – Maximale Antwortlänge
+Latenz – Antwortzeit (ms bis Sekunden)
+Kosten – Preis pro 1M Input/Output Tokens ($0.10–$75)
+Open Source vs. Proprietär
+Kriterium	Open Source	Proprietär
+Datenschutz	Volle Kontrolle	Daten beim Anbieter
+Kosten bei Scale	Nur Infrastruktur	Steigen mit Nutzung
+Performance	Meist schlechter	State of the Art
+Setup-Aufwand	Hoch	Sofort nutzbar
+Anpassbarkeit	Fine-Tuning möglich	Begrenzt
+Wichtige Benchmarks
+MMLU – Allgemeinwissen, Akademisches
+HumanEval – Code-Generierung
+GSM8K – Mathematik, Reasoning
+LMSYS Chatbot Arena – Menschliche Präferenz (Head-to-Head)
+Wichtig: Benchmarks sind nicht alles – immer mit eigenen Use Cases testen!
+Multimodale Fähigkeiten
+Text → Text: Alle Modelle
+Bild → Text: GPT-4o, Claude, Gemini, Llama Vision
+Text → Bild: DALL-E 3, Stable Diffusion, Flux, Midjourney
+Audio → Text: Whisper, Gemini
+Text → Video: Sora, Veo, Kling
+Kostenoptimierung
+Routing – Einfache Anfragen → günstiges Modell, komplexe → teures
+Caching – Gleiche Prompts cachen (Prompt Caching bei Anthropic/OpenAI)
+Batching – Mehrere Anfragen bündeln
+Lokale Modelle – Bei hohem Volume Open Source auf eigener Infra
+Trends 2026
+Reasoning Models (o1, o3, Gemini Thinking) dominieren komplexe Aufgaben
+Multimodalität wird Standard
+Größere Context Windows (2M Tokens) machen RAG teilweise obsolet
+Spezialisierte Modelle für Medizin, Recht, Code gewinnen an Bedeutung
+Kleine effiziente Modelle (SLMs) für Edge/Mobile
