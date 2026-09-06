@@ -6,7 +6,7 @@
 
 ## Was ist das hier?
 
-Dieses Repository ist mein strukturiertes Wissens-Repository zu den **8 Kernkompetenzen eines KI-Profis**. Die Inhalte habe ich nicht einfach aus dem Internet kopiert – ich habe sie mit Claude (Anthropic) in einem iterativen Prozess erarbeitet, kuratiert und in eine konsistente Struktur gebracht.
+Dieses Repository ist mein strukturiertes Wissens-Repository zu den **8 Kernkompetenzen eines KI-Profis**. Die Inhalte habe ich mit Claude (Anthropic) erarbeitet und in eine konsistente Struktur gebracht. Sie sind definitiv nicht vollständig, aber es soll auch nicht um die Expertise im Detail gehen, sondern um den Aufbau einer probabilistischen Wissensdatenbank. Die 8 Markdown-Dateien mit den verschiedenen KI-Kernkompetenzen sind die Datengrundlage. 
 
 Es ist gleichzeitig ein **Arbeitsbeispiel** dafür, wie man KI als persönliches Lern- und Wissensmanagement-Tool einsetzt.
 
@@ -39,28 +39,15 @@ Du bist KI-Bildungsexperte. Welche 8 Kernkompetenzen braucht ein
 KI-Profi im Jahr 2026? Strukturiere sie von Grundlagen bis 
 Anwendungswissen, mit klarer Lernprogression.
 ```
-
-### 2. Inhalte iterativ erarbeitet
-
-Jede Datei wurde in mehreren Runden verfeinert – mit Techniken wie:
-- **Chain-of-Thought:** Schritt-für-Schritt-Erklärungen für komplexe Konzepte
-- **Few-Shot Prompting:** Konsistentes Format durch Beispiele aus vorherigen Dateien
-- **Constraint Prompting:** Klare Vorgaben für Tiefe, Umfang und Praxisbezug
-
-### 3. Qualitätskontrolle durch gezielte Nachfragen
-
-Statt blindlings zu akzeptieren, habe ich die Antworten hinterfragt:
-- *"Welche Aspekte fehlen hier noch?"*
-- *"Erkläre das Konzept X konkreter mit einem Beispiel."*
-- *"Was ist der häufigste Fehler, den Einsteiger hier machen?"*
-
-### 4. Struktur als Projekt in Claude AI verwaltet
+### 2. Struktur als Projekt in Claude AI verwaltet
 
 Die Dateien folgen einer einheitlichen Konvention (claude_XX-Thema.md), die eine spätere Weiterverarbeitung – z. B. als RAG-Wissensbasis – direkt ermöglicht.
 
 ---
+## 🚧 Nächste Projektschritte:
+Die 8 losen md-Dateien in eine Wissensdatenbank umwandeln.
 
-## 🚀 Wie ich dieses Projekt erweitern kann
+## 🚀 Wie ich dieses Projekt danach erweitern werde
 
 ### Kurzfristig (1–2 Wochen)
 - [ ] **Quizzes & Lernfragen** pro Kapitel mit Claude generieren lassen
