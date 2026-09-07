@@ -1,4 +1,4 @@
-# 6 – Infrastruktur & Deployment
+# 6 – Infrastruktur & Entwicklung (Deployment)
 
 ## Die drei Deployment-Modelle
 
