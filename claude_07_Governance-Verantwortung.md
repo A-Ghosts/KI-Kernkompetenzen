@@ -1,4 +1,4 @@
-# 7 – Governance & Verantwortung
+# 7 – Kontrolle (Governance) & Verantwortung
 
 ## Warum KI-Governance entscheidend ist
 
