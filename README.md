@@ -1,4 +1,4 @@
-# 🤖 KI-Kernkompetenzen – Mein strukturiertes Wissenssystem
+# 🤖 KI-Kernkompetenzen – Meine Wissensdatenbank als html-Dokument
 
 > Ein persönliches Wissensprojekt, das mit KI aufgebaut wurde – und zeigt, wie man KI praktisch und systematisch einsetzen kann.
 
